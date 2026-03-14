@@ -1,30 +1,80 @@
-#include "../include/Lista.h"
-#include "../include/Producto.h"
+#include "../include/SistemaCatalogo.h"
+#include <iostream>
 
-int main() {
+using namespace std;
 
-    Lista lista;
+int main(){
 
-    Producto* p1 = new
-    Producto("Arroz","111","Granos","2026-05-10","Gallo",5.50,100);
-    Producto* p2 = new
-    Producto("Leche","222","Lacteos","2026-04-01","DosPinos",8.25,50);
+    SistemaCatalogo sistema;
 
-    lista.insertar(p1); 
-    lista.insertar(p2);
+    int opcion;
 
-    lista.mostrar();
+    do{
 
+        cout<<"\n===== CATALOGO DE SUPERMERCADO =====\n";
+        cout<<"1. Agregar producto\n";
+        cout<<"2. Mostrar productos\n";
+        cout<<"3. Buscar producto por nombre\n";
+        cout<<"0. Salir\n";
+        cout<<"Seleccione una opcion: ";
+        cin>>opcion;
 
-Producto* encontrado = lista.buscarPorNombre("Arroz");
+        if(opcion == 1){
 
-if(encontrado != nullptr){
-    cout << "Producto encontrado:\n";
-    encontrado->mostrar();
-}
-else{
-    cout << "Producto no encontrado\n";
-}
+            string nombre;
+            string codigo;
+            string categoria;
+            string fecha;
+            string marca;
+            double precio;
+            int cantidad;
+
+            cout<<"Nombre: ";
+            cin>>nombre;
+
+            cout<<"Codigo de barra: ";
+            cin>>codigo;
+
+            cout<<"Categoria: ";
+            cin>>categoria;
+
+            cout<<"Fecha caducidad (YYYY-MM-DD): ";
+            cin>>fecha;
+
+            cout<<"Marca: ";
+            cin>>marca;
+
+            cout<<"Precio: ";
+            cin>>precio;
+
+            cout<<"Cantidad disponible: ";
+            cin>>cantidad;
+
+            Producto* nuevo = new Producto(nombre,codigo,categoria,fecha,marca,precio,cantidad);
+
+            sistema.agregarProducto(nuevo);
+
+        }
+
+        else if(opcion == 2){
+
+            sistema.mostrarProductos();
+
+        }
+
+        else if(opcion == 3){
+
+            string nombre;
+
+            cout<<"Ingrese nombre del producto: ";
+            cin>>nombre;
+
+            sistema.buscarProducto(nombre);
+
+        }
+
+    }while(opcion != 0);
 
     return 0;
+
 }
