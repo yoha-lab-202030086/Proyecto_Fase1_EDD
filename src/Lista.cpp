@@ -35,4 +35,18 @@ void Lista::mostrar() {
     }
 }
 
+Producto* Lista::buscarPorNombre(string nombre) {
+
+    Nodo* temp = cabeza; 
+
+    while(temp != nullptr) {
+
+        if(temp->getProducto()->getNombre() == nombre) {
+            return temp->getProducto();
+         }
+        temp = temp->getSiguiente();
+    }
+    return nullptr; 
+}
+
         

@@ -8,10 +8,13 @@ class Lista {
     private: 
        Nodo* cabeza;
 
+
     public: 
        Lista(); 
        void insertar(Producto* producto); 
-       void mostrar();  
+       void mostrar(); 
+       Producto* buscarPorNombre(string nombre); 
+
 };
 
 #endif

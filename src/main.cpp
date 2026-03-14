@@ -15,5 +15,16 @@ int main() {
 
     lista.mostrar();
 
+
+Producto* encontrado = lista.buscarPorNombre("Arroz");
+
+if(encontrado != nullptr){
+    cout << "Producto encontrado:\n";
+    encontrado->mostrar();
+}
+else{
+    cout << "Producto no encontrado\n";
+}
+
     return 0;
 }
