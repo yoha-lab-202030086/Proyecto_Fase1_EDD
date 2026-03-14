@@ -1,6 +1,6 @@
 #include "../include/Producto.h"
 
-Producto::Producto(){
+Producto::Producto() {
 
     nombre="";
     codigoBarra="";
@@ -18,7 +18,7 @@ Producto::Producto(string nombre,
                    string fechaCaducidad,
                    string marca,
                    double precio,
-                   int cantidadDisponible){
+                   int cantidadDisponible) {
 
     this->nombre=nombre;
     this->codigoBarra=codigoBarra;
@@ -30,35 +30,35 @@ Producto::Producto(string nombre,
 
 }
 
-string Producto::getNombre(){
+string Producto::getNombre() {
     return nombre;
 }
 
-string Producto::getCodigoBarra(){
+string Producto::getCodigoBarra() {
     return codigoBarra;
 }
 
-string Producto::getCategoria(){
+string Producto::getCategoria() {
     return categoria;
 }
 
-string Producto::getFechaCaducidad(){
+string Producto::getFechaCaducidad() {
     return fechaCaducidad;
 }
 
-string Producto::getMarca(){
+string Producto::getMarca() {
     return marca;
 }
 
-double Producto::getPrecio(){
+double Producto::getPrecio() {
     return precio;
 }
 
-int Producto::getCantidadDisponible(){
+int Producto::getCantidadDisponible() {
     return cantidadDisponible;
 }
 
-void Producto::mostrar(){
+void Producto::mostrar() {
 
     cout<<"Nombre: "<<nombre<<endl;
     cout<<"Codigo: "<<codigoBarra<<endl;

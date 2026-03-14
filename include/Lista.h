@@ -1,0 +1,17 @@
+#ifndef LISTA_H
+#define LISTA_H
+
+#include "Nodo.h"
+
+class Lista {
+
+    private: 
+       Nodo* cabeza;
+
+    public: 
+       Lista(); 
+       void insertar(Producto* producto); 
+       void mostrar();  
+};
+
+#endif
