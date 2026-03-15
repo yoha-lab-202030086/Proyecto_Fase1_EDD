@@ -15,6 +15,7 @@ int main(){
         cout<<"1. Agregar producto\n";
         cout<<"2. Mostrar productos\n";
         cout<<"3. Buscar producto por nombre\n";
+        cout<<"4. Buscar producto por codigo de barra\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
         cin>>opcion;
@@ -70,6 +71,15 @@ int main(){
             cin>>nombre;
 
             sistema.buscarProducto(nombre);
+
+        }
+
+        else if(opcion == 4) {
+            string codigo;
+            cout<<"Ingrese codigo de barra: ";
+            cin>>codigo;
+
+            sistema.buscarPorCodigo(codigo);
 
         }
 

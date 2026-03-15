@@ -8,6 +8,7 @@ SistemaCatalogo::SistemaCatalogo() {
 
 void SistemaCatalogo::agregarProducto(Producto* producto) {
     listaProductos.insertar(producto); 
+    tablaHash.insertar(producto);
 }
 
 void SistemaCatalogo::mostrarProductos() {
@@ -15,8 +16,7 @@ void SistemaCatalogo::mostrarProductos() {
 }
 
 void SistemaCatalogo::buscarProducto(string nombre) {
-    Producto* encontrado = 
-    listaProductos.buscarPorNombre(nombre);
+    Producto* encontrado = listaProductos.buscarPorNombre(nombre);
 
     if(encontrado != nullptr) {
 
@@ -26,3 +26,16 @@ void SistemaCatalogo::buscarProducto(string nombre) {
         cout<<"Producto no encontrado:  \n";
       }
 }
+
+void SistemaCatalogo::buscarPorCodigo(string codigo) {
+    Producto* encontrado = tablaHash.buscar(codigo);
+
+    if(encontrado != nullptr) {
+
+        cout<<"Producto encontrado:  \n"; 
+        encontrado->mostrar(); 
+    }else{
+        cout<<"Producto no encontrado:  \n";
+      }
+}
+
