@@ -49,4 +49,19 @@ Producto* Lista::buscarPorNombre(string nombre) {
     return nullptr; 
 }
 
+Producto* Lista::buscarPorCodigo(string codigo){
+
+    Nodo* temp = cabeza;
+
+    while(temp != nullptr){
+
+        if(temp->getProducto()->getCodigoBarra() == codigo){
+            return temp->getProducto();
+        }
+
+        temp = temp->getSiguiente();
+    }
+
+    return nullptr;
+}
         

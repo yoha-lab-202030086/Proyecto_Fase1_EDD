@@ -14,7 +14,7 @@ class Lista {
        void insertar(Producto* producto); 
        void mostrar(); 
        Producto* buscarPorNombre(string nombre); 
-
+       Producto* buscarPorCodigo(string codigo);
 };
 
 #endif

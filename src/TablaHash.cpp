@@ -1,38 +1,22 @@
 #include "../include/tablaHash.h"
-#include <iostream>
 
-using namespace std; 
-
-TablaHash::TablaHash() {
-    for (int i=0; i<TAM; i++) {
-        tabla[i] = nullptr;
-    }    
+TablaHash::TablaHash() {  
 }
 
 int TablaHash::funcionHash(string codigo) {
-    int suma = 0;
-    for(char c : codigo) {
-        suma += c; 
-    }
-  return suma % TAM;
+    int num = stoi(codigo);
+
+  return num % TAM;
 }
 
-bool TablaHash::insertar(Producto* producto) {
+void TablaHash::insertar(Producto* producto) {
     int indice = funcionHash(producto->getCodigoBarra());
-    if(tabla[indice] == nullptr) {
-        tabla[indice] = producto;
-       
-        return true;
-    }
-       return false;   
+    
+        tabla[indice].insertar(producto);       
 }
 
 Producto* TablaHash::buscar(string codigo) {
     int indice = funcionHash(codigo);
-    if(tabla[indice] != nullptr && tabla[indice]->getCodigoBarra() == codigo) {
 
-        return tabla[indice];
-}
-
-    return nullptr;
+        return tabla[indice].buscarPorCodigo(codigo);
 }

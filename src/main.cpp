@@ -16,6 +16,7 @@ int main(){
         cout<<"2. Mostrar productos\n";
         cout<<"3. Buscar producto por nombre\n";
         cout<<"4. Buscar producto por codigo de barra\n";
+        cout<<"5. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
         cin>>opcion;
@@ -82,7 +83,11 @@ int main(){
             sistema.buscarPorCodigo(codigo);
 
         }
+         else if(opcion == 5){
 
+            sistema.cargarDesdeCSV("productos.csv");
+
+}
     }while(opcion != 0);
 
     return 0;
