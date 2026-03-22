@@ -83,12 +83,10 @@ int main(){
             sistema.buscarPorCodigo(codigo);
 
         }
-         else if(opcion == 5){
-
-            sistema.cargarDesdeCSV("productos.csv");
-
-}
-    }while(opcion != 0);
+    else if(opcion == 5){
+    sistema.cargarDesdeCSV("data/productos.csv");
+        }
+ } while(opcion != 0);
 
     return 0;
 

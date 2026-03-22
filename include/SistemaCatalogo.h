@@ -4,13 +4,13 @@
 #include <string>
 
 #include "Lista.h"
-#include "TablaHash.h"
+#include "AVL.h"
 
 class SistemaCatalogo {
 
     private: 
        Lista listaProductos; 
-       TablaHash tablaHash;
+       AVL arbol;
 
     public: 
        SistemaCatalogo();

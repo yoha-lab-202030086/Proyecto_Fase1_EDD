@@ -1,6 +1,3 @@
-#ifndef LISTA_H
-#define LISTA_H
-
 #include "../include/Nodo.h"
 
 Nodo::Nodo(Producto* p) {
@@ -19,5 +16,3 @@ Nodo* Nodo:: getSiguiente() {
 void Nodo:: setSiguiente(Nodo* sig) {
     siguiente = sig; 
 }
-
-#endif

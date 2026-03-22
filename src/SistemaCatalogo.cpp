@@ -10,64 +10,61 @@ SistemaCatalogo::SistemaCatalogo() {
 
 void SistemaCatalogo::agregarProducto(Producto* producto) {
     listaProductos.insertar(producto); 
-    tablaHash.insertar(producto);
+    arbol.insertar(producto);
 }
 
+// MOSTRAR
 void SistemaCatalogo::mostrarProductos() {
     listaProductos.mostrar();
 }
 
+// BUSCAR POR NOMBRE (USA AVL)
 void SistemaCatalogo::buscarProducto(string nombre) {
-    Producto* encontrado = listaProductos.buscarPorNombre(nombre);
+    Producto* encontrado = arbol.buscar(nombre);
 
     if(encontrado != nullptr) {
-
-        cout<<"Producto encontrado:  \n"; 
+        cout<<"Producto encontrado:\n"; 
         encontrado->mostrar(); 
-    }else{
-        cout<<"Producto no encontrado:  \n";
-      }
+    } else {
+        cout<<"Producto no encontrado\n";
+    }
 }
 
+// BUSCAR POR CODIGO (USA LISTA)
 void SistemaCatalogo::buscarPorCodigo(string codigo) {
-    Producto* encontrado = tablaHash.buscar(codigo);
+    Producto* encontrado = listaProductos.buscarPorCodigo(codigo);
 
     if(encontrado != nullptr) {
-
-        cout<<"Producto encontrado:  \n"; 
+        cout<<"Producto encontrado:\n"; 
         encontrado->mostrar(); 
-    }else{
-        cout<<"Producto no encontrado:  \n";
-      }
+    } else {
+        cout<<"Producto no encontrado\n";
+    }
 }
 
+// CARGAR CSV 
 void SistemaCatalogo::cargarDesdeCSV(string archivo) {
+
     ifstream file(archivo);
 
     if(!file.is_open()) {
-
-    cout<<"No se pudo abrir el archivo\n";
-       return;
-}
+        cout << "No se pudo abrir el archivo\n";
+        return;
+    }
 
     string linea;
+    getline(file, linea); // encabezado
 
-     getline(file,linea); 
+    int contador = 0;
 
-     int contador = 0; 
+    while(getline(file, linea)) {
 
-   while(getline(file,linea)) {
-      contador++;
+        if(linea.empty()) continue;
 
-    stringstream ss(linea);
+        stringstream ss(linea);
 
-        string nombre;
-        string codigo;
-        string categoria;
-        string fecha;
-        string marca;
-        string precioStr;
-        string cantidadStr;
+        string nombre, codigo, categoria, fecha, marca;
+        string precioStr, cantidadStr;
 
         getline(ss,nombre,',');
         getline(ss,codigo,',');
@@ -78,25 +75,18 @@ void SistemaCatalogo::cargarDesdeCSV(string archivo) {
         getline(ss,cantidadStr,',');
 
         double precio = stod(precioStr);
-        int cantidad = stoi(cantidadStr);
+        int cantidad = stod(cantidadStr);
 
         Producto* nuevo = new Producto(
-            nombre,
-            codigo,
-            categoria,
-            fecha,
-            marca,
-            precio,
-            cantidad
+            nombre, codigo, categoria, fecha, marca, precio, cantidad
         );
 
         agregarProducto(nuevo);
 
+        contador++;
     }
 
     file.close();
 
-    cout<<"Productos cargados: \n" << contador << endl;
-
+    cout << "Productos cargados: " << contador << endl;
 }
-
