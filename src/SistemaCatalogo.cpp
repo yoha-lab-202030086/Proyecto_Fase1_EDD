@@ -10,12 +10,18 @@ SistemaCatalogo::SistemaCatalogo() {
 
 void SistemaCatalogo::agregarProducto(Producto* producto) {
     listaProductos.insertar(producto); 
+    listaOrdenada.insertarOrdenado(producto);
     arbol.insertar(producto);
 }
 
 // MOSTRAR
 void SistemaCatalogo::mostrarProductos() {
     listaProductos.mostrar();
+}
+
+void SistemaCatalogo::mostrarListaOrdenada() {
+    cout<<"\n=== LISTA ORDENADA POR NOMBRE ===\n";
+    listaOrdenada.mostrar();
 }
 
 // BUSCAR POR NOMBRE (USA AVL)
@@ -41,6 +47,11 @@ void SistemaCatalogo::buscarPorCodigo(string codigo) {
         cout<<"Producto no encontrado\n";
     }
 }
+
+void SistemaCatalogo::listarPorNombre() {
+    cout<<"\n=== PRODUCTOS ORDENADOS POR NOMBRE ===\n";
+    arbol.mostrarInOrden();
+} 
 
 // CARGAR CSV 
 void SistemaCatalogo::cargarDesdeCSV(string archivo) {

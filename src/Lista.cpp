@@ -24,6 +24,33 @@ void Lista::insertar(Producto* producto) {
     }
 }
 
+void Lista::insertarOrdenado(Producto* producto){
+
+    Nodo* nuevo = new Nodo(producto);
+
+    // Insertar al inicio
+    if(cabeza == nullptr || 
+       producto->getNombre() < cabeza->getProducto()->getNombre()){
+
+        nuevo->setSiguiente(cabeza);
+        cabeza = nuevo;
+        return;
+    }
+
+    Nodo* actual = cabeza;
+
+    // Buscar posición
+    while(actual->getSiguiente() != nullptr &&
+          actual->getSiguiente()->getProducto()->getNombre() < producto->getNombre()){
+
+        actual = actual->getSiguiente();
+    }
+
+    // Insertar
+    nuevo->setSiguiente(actual->getSiguiente());
+    actual->setSiguiente(nuevo);
+}
+
 void Lista::mostrar() {
 
     Nodo* temp = cabeza; 

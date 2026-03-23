@@ -18,11 +18,14 @@ class AVL {
 
         NodoAVL* insertar(NodoAVL* nodo, Producto* producto);
         Producto* buscar(NodoAVL* nodo, std::string nombre);
+
+        void inOrden(NodoAVL* nodo);
         
     public:
         AVL();
 
         void insertar(Producto* producto);
         Producto* buscar(std::string nombre);
+        void mostrarInOrden();
     };
  #endif

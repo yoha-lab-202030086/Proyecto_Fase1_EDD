@@ -124,3 +124,15 @@ Producto* AVL::buscar(NodoAVL* nodo, string nombre){
 Producto* AVL::buscar(string nombre){
     return buscar(raiz, nombre);
 }
+
+void AVL::inOrden(NodoAVL* nodo) {
+    if(nodo != nullptr) {
+        inOrden(nodo->getIzquierda());
+        nodo->getProducto()->mostrar();
+        inOrden(nodo->getDerecha());
+    }
+}
+
+void AVL::mostrarInOrden() {
+    inOrden(raiz);
+ }   

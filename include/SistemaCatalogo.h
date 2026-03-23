@@ -10,6 +10,7 @@ class SistemaCatalogo {
 
     private: 
        Lista listaProductos; 
+       Lista listaOrdenada;
        AVL arbol;
 
     public: 
@@ -18,6 +19,8 @@ class SistemaCatalogo {
        void mostrarProductos();
        void buscarProducto(string nombre);
        void buscarPorCodigo(string codigo);
+       void listarPorNombre();
+       void mostrarListaOrdenada();
        void cargarDesdeCSV(string archivo);
 }; 
 

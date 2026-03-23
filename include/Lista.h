@@ -12,6 +12,7 @@ class Lista {
     public: 
        Lista(); 
        void insertar(Producto* producto); 
+       void insertarOrdenado(Producto* producto);
        void mostrar(); 
        Producto* buscarPorNombre(string nombre); 
        Producto* buscarPorCodigo(string codigo);

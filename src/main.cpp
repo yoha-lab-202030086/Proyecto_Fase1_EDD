@@ -13,10 +13,12 @@ int main(){
 
         cout<<"\n===== CATALOGO DE SUPERMERCADO =====\n";
         cout<<"1. Agregar producto\n";
-        cout<<"2. Mostrar productos\n";
-        cout<<"3. Buscar producto por nombre\n";
-        cout<<"4. Buscar producto por codigo de barra\n";
-        cout<<"5. Cargar archivo CSV\n";
+        cout<<"2. Mostrar productos (lista no ordenada)\n";
+        cout<<"3. Mostrar productos (lista ordenada)\n";
+        cout<<"4. Buscar producto por codigo de barra (Lista)\n";
+        cout<<"5. Mostrar productos ordenados (AVL)\n";
+        cout<<"6. Buscar producto por nombre (AVL)\n";
+        cout<<"7. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
         cin>>opcion;
@@ -58,34 +60,40 @@ int main(){
 
         }
 
-        else if(opcion == 2){
+        else if(opcion == 2) {
 
             sistema.mostrarProductos();
 
         }
 
-        else if(opcion == 3){
+        else if(opcion == 3) {
+            sistema.mostrarListaOrdenada();
+        }   
 
+        else if(opcion == 4){
+            
+            string codigo;
+            cout<<"Ingrese codigo de barra: ";
+            cin>>codigo;
+
+            sistema.buscarPorCodigo(codigo);
+        }
+
+        else if(opcion == 5) {
+            sistema.listarPorNombre();
+        }
+        else if(opcion == 6) {
             string nombre;
 
             cout<<"Ingrese nombre del producto: ";
             cin>>nombre;
 
             sistema.buscarProducto(nombre);
-
+        }
+        else if(opcion == 7) {
+            sistema.cargarDesdeCSV("data/productos.csv");
         }
 
-        else if(opcion == 4) {
-            string codigo;
-            cout<<"Ingrese codigo de barra: ";
-            cin>>codigo;
-
-            sistema.buscarPorCodigo(codigo);
-
-        }
-    else if(opcion == 5){
-    sistema.cargarDesdeCSV("data/productos.csv");
-        }
  } while(opcion != 0);
 
     return 0;
