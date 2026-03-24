@@ -9,6 +9,12 @@ SistemaCatalogo::SistemaCatalogo() {
 }
 
 void SistemaCatalogo::agregarProducto(Producto* producto) {
+
+    if(arbol.buscar(producto->getNombre()) != nullptr) {
+        cout<<"Producto ya existe\n";
+        return;
+    }
+
     listaProductos.insertar(producto); 
     listaOrdenada.insertarOrdenado(producto);
     arbol.insertar(producto);
@@ -52,6 +58,14 @@ void SistemaCatalogo::listarPorNombre() {
     cout<<"\n=== PRODUCTOS ORDENADOS POR NOMBRE ===\n";
     arbol.mostrarInOrden();
 } 
+
+void SistemaCatalogo::eliminarProducto(string nombre) {
+    listaProductos.eliminarPorNombre(nombre); //lista no ordenada
+    listaOrdenada.eliminarPorNombre(nombre);
+    arbol.eliminar(nombre);
+    
+    cout<<"Producto eliminado correctamente\n";
+}  
 
 // CARGAR CSV 
 void SistemaCatalogo::cargarDesdeCSV(string archivo) {

@@ -91,4 +91,32 @@ Producto* Lista::buscarPorCodigo(string codigo){
 
     return nullptr;
 }
+
+void Lista::eliminarPorNombre(string nombre){
+
+    if(cabeza == nullptr) return;
+
+    // Caso 1: eliminar cabeza
+    if(cabeza->getProducto()->getNombre() == nombre){
+        Nodo* temp = cabeza;
+        cabeza = cabeza->getSiguiente();
+        delete temp;
+        return;
+    }
+
+    // Caso 2: buscar en los nodos siguientes 
+    Nodo* actual = cabeza;
+
+    while(actual->getSiguiente() != nullptr){
+
+        if(actual->getSiguiente()->getProducto()->getNombre() == nombre){
+            Nodo* temp = actual->getSiguiente();
+            actual->setSiguiente(temp->getSiguiente());
+            delete temp;
+            return;
+        }
+
+        actual = actual->getSiguiente();
+    }
+}
         

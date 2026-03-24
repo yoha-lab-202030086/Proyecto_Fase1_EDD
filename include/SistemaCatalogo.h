@@ -21,6 +21,7 @@ class SistemaCatalogo {
        void buscarPorCodigo(string codigo);
        void listarPorNombre();
        void mostrarListaOrdenada();
+       void eliminarProducto(string nombre);
        void cargarDesdeCSV(string archivo);
 }; 
 

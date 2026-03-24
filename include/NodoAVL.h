@@ -27,6 +27,8 @@ class NodoAVL {
 
        int getAltura();
        void setAltura(int a);
+
+       void setProducto(Producto* p);     
 }; 
 
 #endif

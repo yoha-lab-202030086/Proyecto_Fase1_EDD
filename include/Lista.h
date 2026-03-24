@@ -16,6 +16,7 @@ class Lista {
        void mostrar(); 
        Producto* buscarPorNombre(string nombre); 
        Producto* buscarPorCodigo(string codigo);
+       void eliminarPorNombre(string nombre);
 };
 
 #endif

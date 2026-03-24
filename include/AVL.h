@@ -15,17 +15,19 @@ class AVL {
 
         NodoAVL* rotarDerecha(NodoAVL* nodoDesbalanceado);
         NodoAVL* rotarIzquierda(NodoAVL* nodoDesbalanceado);
-
+        
         NodoAVL* insertar(NodoAVL* nodo, Producto* producto);
         Producto* buscar(NodoAVL* nodo, std::string nombre);
-
-        void inOrden(NodoAVL* nodo);
         
+        void inOrden(NodoAVL* nodo);
+        NodoAVL* eliminar(NodoAVL* nodo, std::string nombre);
+
     public:
         AVL();
 
         void insertar(Producto* producto);
         Producto* buscar(std::string nombre);
         void mostrarInOrden();
+        void eliminar(std::string nombre);
     };
  #endif

@@ -16,3 +16,4 @@ Nodo* Nodo:: getSiguiente() {
 void Nodo:: setSiguiente(Nodo* sig) {
     siguiente = sig; 
 }
+

@@ -106,7 +106,7 @@ void AVL::insertar(Producto* producto){
 }
 
 // Buscar
-Producto* AVL::buscar(NodoAVL* nodo, string nombre){
+Producto* AVL::buscar(NodoAVL* nodo, std::string nombre){
 
     if(nodo == nullptr) return nullptr;
 
@@ -121,7 +121,7 @@ Producto* AVL::buscar(NodoAVL* nodo, string nombre){
     return buscar(nodo->getDerecha(), nombre);
 }
 
-Producto* AVL::buscar(string nombre){
+Producto* AVL::buscar(std::string nombre){
     return buscar(raiz, nombre);
 }
 
@@ -135,4 +135,73 @@ void AVL::inOrden(NodoAVL* nodo) {
 
 void AVL::mostrarInOrden() {
     inOrden(raiz);
+ }   
+
+ NodoAVL* AVL::eliminar(NodoAVL* nodo, std::string nombre){
+
+    if(nodo == nullptr) return nodo;
+
+    if(nombre < nodo->getProducto()->getNombre()){
+        nodo->setIzquierda(eliminar(nodo->getIzquierda(), nombre));
+    }
+    else if(nombre > nodo->getProducto()->getNombre()){
+        nodo->setDerecha(eliminar(nodo->getDerecha(), nombre));
+    }
+    else{
+
+        // Nodo encontrado
+        if(nodo->getIzquierda() == nullptr || nodo->getDerecha() == nullptr){
+
+            NodoAVL* temp = nodo->getIzquierda() ? nodo->getIzquierda() : nodo->getDerecha();
+
+            if(temp == nullptr){
+                temp = nodo;
+                nodo = nullptr;
+            } else {
+                *nodo = *temp;
+            }
+
+            delete temp;
+        }
+        else{
+            NodoAVL* temp = nodo->getDerecha();
+
+            while(temp->getIzquierda() != nullptr){
+                temp = temp->getIzquierda();
+            }
+
+            nodo->setProducto(temp->getProducto());
+
+            nodo->setDerecha(eliminar(nodo->getDerecha(), temp->getProducto()->getNombre()));
+        }
+    }
+
+    if(nodo == nullptr) return nodo;
+
+    nodo->setAltura(1 + max(altura(nodo->getIzquierda()), altura(nodo->getDerecha())));
+
+    int balance = getBalance(nodo);
+
+    // Balanceos
+    if(balance > 1 && getBalance(nodo->getIzquierda()) >= 0)
+        return rotarDerecha(nodo);
+
+    if(balance > 1 && getBalance(nodo->getIzquierda()) < 0){
+        nodo->setIzquierda(rotarIzquierda(nodo->getIzquierda()));
+        return rotarDerecha(nodo);
+    }
+
+    if(balance < -1 && getBalance(nodo->getDerecha()) <= 0)
+        return rotarIzquierda(nodo);
+
+    if(balance < -1 && getBalance(nodo->getDerecha()) > 0){
+        nodo->setDerecha(rotarDerecha(nodo->getDerecha()));
+        return rotarIzquierda(nodo);
+    }
+
+    return nodo;
+}
+
+void AVL::eliminar(std::string nombre){
+    raiz = eliminar(raiz, nombre);
  }   
