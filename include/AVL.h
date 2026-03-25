@@ -29,5 +29,6 @@ class AVL {
         Producto* buscar(std::string nombre);
         void mostrarInOrden();
         void eliminar(std::string nombre);
+        bool insertarSeguro(Producto* producto);
     };
  #endif

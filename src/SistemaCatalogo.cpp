@@ -10,14 +10,13 @@ SistemaCatalogo::SistemaCatalogo() {
 
 void SistemaCatalogo::agregarProducto(Producto* producto) {
 
-    if(arbol.buscar(producto->getNombre()) != nullptr) {
+    if(!arbol.insertarSeguro(producto)) {
         cout<<"Producto ya existe\n";
         return;
     }
 
     listaProductos.insertar(producto); 
     listaOrdenada.insertarOrdenado(producto);
-    arbol.insertar(producto);
 }
 
 // MOSTRAR
@@ -60,6 +59,11 @@ void SistemaCatalogo::listarPorNombre() {
 } 
 
 void SistemaCatalogo::eliminarProducto(string nombre) {
+
+    if(arbol.buscar(nombre) == nullptr) {
+        cout<<"Producto no encontrado\n";
+        return;
+    }    
     listaProductos.eliminarPorNombre(nombre); //lista no ordenada
     listaOrdenada.eliminarPorNombre(nombre);
     arbol.eliminar(nombre);

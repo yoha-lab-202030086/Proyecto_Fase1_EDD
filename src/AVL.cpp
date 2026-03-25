@@ -102,7 +102,16 @@ NodoAVL* AVL::insertar(NodoAVL* nodo, Producto* producto){
 
 // Insertar público
 void AVL::insertar(Producto* producto){
+    insertarSeguro(producto);
+}
+
+bool AVL::insertarSeguro(Producto* producto){
+    if(buscar(producto->getNombre()) != nullptr){
+        return false;
+}
+
     raiz = insertar(raiz, producto);
+    return true;
 }
 
 // Buscar
@@ -204,4 +213,5 @@ void AVL::mostrarInOrden() {
 
 void AVL::eliminar(std::string nombre){
     raiz = eliminar(raiz, nombre);
- }   
+}
+ 
