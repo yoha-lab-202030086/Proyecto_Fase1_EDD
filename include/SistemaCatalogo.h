@@ -5,6 +5,7 @@
 
 #include "Lista.h"
 #include "AVL.h"
+#include "ArbolB.h"
 
 class SistemaCatalogo {
 
@@ -12,16 +13,18 @@ class SistemaCatalogo {
        Lista listaProductos; 
        Lista listaOrdenada;
        AVL arbol;
+       ArbolB arbolB;
 
     public: 
        SistemaCatalogo();
-       void agregarProducto(Producto* producto);
+       void agregarProducto(Producto* producto, bool mostrarMensaje = true);
        void mostrarProductos();
        void buscarProducto(string nombre);
        void buscarPorCodigo(string codigo);
        void listarPorNombre();
        void mostrarListaOrdenada();
        void eliminarProducto(string nombre);
+       void buscarPorRangoFecha(string inicio, string fin);
        void cargarDesdeCSV(string archivo);
 }; 
 

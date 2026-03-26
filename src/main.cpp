@@ -20,6 +20,7 @@ int main(){
         cout<<"6. Mostrar productos ordenados (AVL)\n";
         cout<<"7. Buscar producto por nombre (AVL)\n";
         cout<<"8. Eliminar producto (AVL)\n";
+        cout<<"9. Buscar productos por rango de fecha (Arbol B)\n";
         cout<<"10. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
@@ -105,6 +106,16 @@ int main(){
             cin>>nombre;
 
             sistema.eliminarProducto(nombre);
+        }
+        else if(opcion == 9) {
+
+            string inicio, fin;
+            cout<<"Fecha inicio (YYYY-MM-DD): ";
+            cin>>inicio;
+            cout<<"Fecha fin (YYYY-MM-DD): ";
+            cin>>fin;
+
+    sistema.buscarPorRangoFecha(inicio, fin);
         }
         else if(opcion == 10) {
             sistema.cargarDesdeCSV("data/productos.csv");

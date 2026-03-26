@@ -5,21 +5,27 @@
 
 using namespace std; 
 
-SistemaCatalogo::SistemaCatalogo() {
+SistemaCatalogo::SistemaCatalogo() : arbolB(3){
 }
 
-void SistemaCatalogo::agregarProducto(Producto* producto) {
+void SistemaCatalogo::agregarProducto(Producto* producto, bool mostrarMensaje) {
 
     if(!arbol.insertarSeguro(producto)) {
+        if(mostrarMensaje)
         cout<<"Producto ya existe\n";
         return;
     }
 
     listaProductos.insertar(producto); 
     listaOrdenada.insertarOrdenado(producto);
+    arbolB.insertar(producto);
+
+    if(mostrarMensaje)
+     cout<<"Producto agregado correctamente\n";
+
 }
 
-// MOSTRAR
+// Mostrar
 void SistemaCatalogo::mostrarProductos() {
     listaProductos.mostrar();
 }
@@ -29,7 +35,7 @@ void SistemaCatalogo::mostrarListaOrdenada() {
     listaOrdenada.mostrar();
 }
 
-// BUSCAR POR NOMBRE (USA AVL)
+// Buscar por nombre (AVL)
 void SistemaCatalogo::buscarProducto(string nombre) {
     Producto* encontrado = arbol.buscar(nombre);
 
@@ -41,7 +47,7 @@ void SistemaCatalogo::buscarProducto(string nombre) {
     }
 }
 
-// BUSCAR POR CODIGO (USA LISTA)
+// Buscar por codigo (LISTA)
 void SistemaCatalogo::buscarPorCodigo(string codigo) {
     Producto* encontrado = listaProductos.buscarPorCodigo(codigo);
 
@@ -67,11 +73,17 @@ void SistemaCatalogo::eliminarProducto(string nombre) {
     listaProductos.eliminarPorNombre(nombre); //lista no ordenada
     listaOrdenada.eliminarPorNombre(nombre);
     arbol.eliminar(nombre);
+    arbolB.eliminar(nombre);
     
     cout<<"Producto eliminado correctamente\n";
 }  
 
-// CARGAR CSV 
+void SistemaCatalogo::buscarPorRangoFecha(string inicio, string fin){
+    cout<<"\n=== PRODUCTOS EN RANGO ===\n";
+    arbolB.buscarPorRango(inicio, fin);
+}
+
+// Cargar CSV 
 void SistemaCatalogo::cargarDesdeCSV(string archivo) {
 
     ifstream file(archivo);
@@ -110,7 +122,7 @@ void SistemaCatalogo::cargarDesdeCSV(string archivo) {
             nombre, codigo, categoria, fecha, marca, precio, cantidad
         );
 
-        agregarProducto(nuevo);
+        agregarProducto(nuevo, false);
 
         contador++;
     }
