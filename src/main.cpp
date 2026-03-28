@@ -20,8 +20,11 @@ int main(){
         cout<<"6. Mostrar productos ordenados (AVL)\n";
         cout<<"7. Buscar producto por nombre (AVL)\n";
         cout<<"8. Eliminar producto (AVL)\n";
-        cout<<"9. Buscar productos por rango de fecha (Arbol B)\n";
-        cout<<"10. Cargar archivo CSV\n";
+        cout<<"9. Comparar rendimiento Lista Vs AVL\n";
+        cout<<"10. Buscar productos por categoria (arbol B+)\n";
+        //cout<<"10. Comparar rendimiento Lista Vs AVL\n";
+        cout<<"11. Buscar productos por rango de fecha (Arbol B)\n";
+        cout<<"15. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
         cin>>opcion;
@@ -60,15 +63,11 @@ int main(){
             Producto* nuevo = new Producto(nombre,codigo,categoria,fecha,marca,precio,cantidad);
 
             sistema.agregarProducto(nuevo);
-
         }
-
         else if(opcion == 2) {
 
             sistema.mostrarProductos();
-
         }
-
         else if(opcion == 3) {
             sistema.mostrarListaOrdenada();
         }   
@@ -109,15 +108,26 @@ int main(){
         }
         else if(opcion == 9) {
 
+            sistema.compararRendimiento();
+        }
+        else if(opcion == 10) {
+            string categoria; 
+            cout<<"Ingese categoria: ";
+            cin>>categoria;
+
+            sistema.buscarPorCategoria(categoria);
+        }
+        else if(opcion == 11) {
             string inicio, fin;
             cout<<"Fecha inicio (YYYY-MM-DD): ";
             cin>>inicio;
             cout<<"Fecha fin (YYYY-MM-DD): ";
             cin>>fin;
 
-    sistema.buscarPorRangoFecha(inicio, fin);
+            sistema.buscarPorRangoFecha(inicio, fin);
         }
-        else if(opcion == 10) {
+        else if(opcion == 15) {
+
             sistema.cargarDesdeCSV("data/productos.csv");
         }
 

@@ -17,6 +17,7 @@ class Lista {
        Producto* buscarPorNombre(string nombre); 
        Producto* buscarPorCodigo(string codigo);
        void eliminarPorNombre(string nombre);
+       Nodo* getCabeza();
 };
 
 #endif

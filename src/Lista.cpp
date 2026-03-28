@@ -119,4 +119,8 @@ void Lista::eliminarPorNombre(string nombre){
         actual = actual->getSiguiente();
     }
 }
+
+Nodo* Lista::getCabeza(){
+    return cabeza;
+}  
         
