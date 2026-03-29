@@ -53,3 +53,32 @@ void ArbolBPlus::buscarPorCategoria(string categoria){
         cout << "No hay productos en esta categoria\n";
     }
 }
+
+void ArbolBPlus::eliminar(string nombre) {
+
+    NodoBPlus* actual = cabeza;
+    NodoBPlus* anterior = nullptr;
+
+    while(actual != nullptr) {
+
+        if(actual->getProducto()->getNombre() == nombre) {
+
+            if(anterior == nullptr) {
+                cabeza = actual->getSiguiente();
+            } else {
+                    anterior->setSiguiente(actual->getSiguiente());
+                }
+                 delete actual;
+
+                    cout<<"(B+) eliminado correctamente\n";
+
+                    cout<<"(B+) si fuera un B+ real -> se evaluaria redistribucion o fusion\n";
+
+                    return;
+        }
+                anterior = actual;
+                actual = actual->getSiguiente();
+    }
+                 cout<<"No encontrado\n";
+}
+                

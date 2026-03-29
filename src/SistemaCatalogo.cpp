@@ -66,25 +66,6 @@ void SistemaCatalogo::listarPorNombre() {
     arbol.mostrarInOrden();
 } 
 
-void SistemaCatalogo::eliminarProducto(string nombre) {
-
-    if(arbol.buscar(nombre) == nullptr) {
-        cout<<"Producto no encontrado\n";
-        return;
-    }    
-    listaProductos.eliminarPorNombre(nombre); //lista no ordenada
-    listaOrdenada.eliminarPorNombre(nombre);
-    arbol.eliminar(nombre);
-    arbolB.eliminar(nombre);
-    
-    cout<<"Producto eliminado correctamente\n";
-}  
-
-void SistemaCatalogo::buscarPorRangoFecha(string inicio, string fin){
-    cout<<"\n=== PRODUCTOS EN RANGO ===\n";
-    arbolB.buscarPorRango(inicio, fin);
-}
-
 void SistemaCatalogo::compararRendimiento() {
 
     Nodo* actual = listaProductos.getCabeza();
@@ -230,6 +211,36 @@ long long delAVL = totalDelAVL / 500;
 
 void SistemaCatalogo::buscarPorCategoria(string categoria) {
     arbolBPlus.buscarPorCategoria(categoria);
+} 
+
+void SistemaCatalogo::mostrarArbolB() {
+    arbolB.mostrar();
+}
+
+void SistemaCatalogo::buscarPorRangoFecha(string inicio, string fin){
+    cout<<"\n=== PRODUCTOS EN RANGO ===\n";
+    arbolB.buscarPorRango(inicio, fin);
+}
+
+void SistemaCatalogo::eliminarProducto(string nombre) {
+
+    if(arbol.buscar(nombre) == nullptr) {
+        cout<<"Producto no encontrado\n";
+        return;
+    }    
+
+    listaProductos.eliminarPorNombre(nombre); //lista no ordenada
+    listaOrdenada.eliminarPorNombre(nombre);
+    arbol.eliminar(nombre);
+    
+    cout<<"Producto eliminado correctamente\n";
+}  
+
+void SistemaCatalogo::eliminarProductoPorFecha(string fecha) {
+
+    arbolB.eliminar(fecha);
+
+     cout<<"Producto eliminado correctamente\n";
 }   
 
 // Cargar CSV 

@@ -8,6 +8,8 @@
 #include "ArbolB.h"
 #include "ArbolBPlus.h"
 
+using namespace std;
+
 class SistemaCatalogo {
 
     private: 
@@ -21,14 +23,16 @@ class SistemaCatalogo {
        SistemaCatalogo();
        void agregarProducto(Producto* producto, bool mostrarMensaje = true);
        void mostrarProductos();
+       void mostrarListaOrdenada();
        void buscarProducto(string nombre);
        void buscarPorCodigo(string codigo);
        void listarPorNombre();
-       void mostrarListaOrdenada();
-       void eliminarProducto(string nombre);
-       void buscarPorRangoFecha(string inicio, string fin);
        void compararRendimiento();
        void buscarPorCategoria(string categoria);
+       void mostrarArbolB();
+       void buscarPorRangoFecha(string inicio, string fin);
+       void eliminarProducto(string nombre);
+       void eliminarProductoPorFecha(string fecha);
        void cargarDesdeCSV(string archivo);
 }; 
 

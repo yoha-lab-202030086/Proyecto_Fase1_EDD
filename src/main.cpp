@@ -17,13 +17,15 @@ int main(){
         cout<<"3. Mostrar productos (lista ordenada)\n";
         cout<<"4. Buscar producto por codigo de barra (Lista)\n";
         cout<<"5. Eliminar producto (Lista)\n";
-        cout<<"6. Mostrar productos ordenados (AVL)\n";
+        cout<<"6. Mostrar productos ordenados por nombre (AVL)\n";
         cout<<"7. Buscar producto por nombre (AVL)\n";
-        cout<<"8. Eliminar producto (AVL)\n";
+        cout<<"8. Eliminar producto por nombre (AVL)\n";
         cout<<"9. Comparar rendimiento Lista Vs AVL\n";
         cout<<"10. Buscar productos por categoria (arbol B+)\n";
         //cout<<"10. Comparar rendimiento Lista Vs AVL\n";
-        cout<<"11. Buscar productos por rango de fecha (Arbol B)\n";
+        cout<<"11. Mostrar productos ordenados por fecha (Arbol B)\n";
+        cout<<"12. Buscar productos por rango de fecha (Arbol B)\n";
+        cout<<"13. Eliminar productos por fecha (Arbol B)\n";
         cout<<"15. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
@@ -118,6 +120,9 @@ int main(){
             sistema.buscarPorCategoria(categoria);
         }
         else if(opcion == 11) {
+            sistema.mostrarArbolB();
+        }   
+        else if(opcion == 12) {
             string inicio, fin;
             cout<<"Fecha inicio (YYYY-MM-DD): ";
             cin>>inicio;
@@ -125,6 +130,14 @@ int main(){
             cin>>fin;
 
             sistema.buscarPorRangoFecha(inicio, fin);
+        }
+        else if(opcion == 13) {
+            string fecha;
+            cout<<"Ingrese la fecha de caducidad (YYYY-MM-DD): ";
+            cin>>fecha;
+ 
+            sistema.eliminarProductoPorFecha(fecha);
+
         }
         else if(opcion == 15) {
 
