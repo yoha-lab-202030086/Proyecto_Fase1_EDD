@@ -1,4 +1,5 @@
 #include "../include/AVL.h"
+#include <fstream>
 
 // Constructor
 AVL::AVL(){
@@ -214,4 +215,35 @@ void AVL::mostrarInOrden() {
 void AVL::eliminar(std::string nombre){
     raiz = eliminar(raiz, nombre);
 }
- 
+
+void AVL::generarDot(string archivo) {
+    ofstream file(archivo);
+
+    file << "digraph AVL {\n";
+    file << "node [shape=circle];\n";
+
+    generarDotRec(raiz, file);
+
+    file << "}\n";
+    file.close();
+}
+
+void AVL::generarDotRec(NodoAVL* nodo, ofstream& file){
+    if(nodo == nullptr) return;
+
+    file << "\"" << nodo->getProducto()->getNombre() << "\";\n";
+
+    if(nodo->getIzquierda() != nullptr){
+        file << "\"" << nodo->getProducto()->getNombre() << "\" -> \""
+             << nodo->getIzquierda()->getProducto()->getNombre() << "\";\n";
+
+        generarDotRec(nodo->getIzquierda(), file);
+    }
+
+    if(nodo->getDerecha() != nullptr){
+        file << "\"" << nodo->getProducto()->getNombre() << "\" -> \""
+             << nodo->getDerecha()->getProducto()->getNombre() << "\";\n";
+
+        generarDotRec(nodo->getDerecha(), file);
+    }
+}

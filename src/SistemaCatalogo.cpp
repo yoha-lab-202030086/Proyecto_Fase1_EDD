@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <chrono>
+#include <cstdlib>
 
 using namespace std::chrono; 
 
@@ -37,18 +38,6 @@ void SistemaCatalogo::mostrarListaOrdenada() {
     listaOrdenada.mostrar();
 }
 
-// Buscar por nombre (AVL)
-void SistemaCatalogo::buscarProducto(string nombre) {
-    Producto* encontrado = arbol.buscar(nombre);
-
-    if(encontrado != nullptr) {
-        cout<<"Producto encontrado:\n"; 
-        encontrado->mostrar(); 
-    } else {
-        cout<<"Producto no encontrado\n";
-    }
-}
-
 // Buscar por codigo (LISTA)
 void SistemaCatalogo::buscarPorCodigo(string codigo) {
     Producto* encontrado = listaProductos.buscarPorCodigo(codigo);
@@ -75,9 +64,29 @@ void SistemaCatalogo::eliminarProducto(string nombre) {
 
     listaProductos.eliminarPorNombre(nombre); //lista no ordenada
     listaOrdenada.eliminarPorNombre(nombre);
+    arbol.eliminar(nombre);
     
     cout<<"Producto eliminado correctamente\n";
 }  
+
+void SistemaCatalogo::mostrarAVL() {
+   cout<<"\n=== PRODUCTOS ORDENADOS POR NOMBRE ===\n";
+    arbol.mostrarInOrden();
+    arbol.generarDot("avl.dot");
+    system("dot -Tpng avl.dot -o avl.png");
+}
+
+// Buscar por nombre (AVL)
+void SistemaCatalogo::buscarProducto(string nombre) {
+    Producto* encontrado = arbol.buscar(nombre);
+
+    if(encontrado != nullptr) {
+        cout<<"Producto encontrado:\n"; 
+        encontrado->mostrar(); 
+    } else {
+        cout<<"Producto no encontrado\n";
+    }
+}
 
 void SistemaCatalogo::compararRendimiento() {
 

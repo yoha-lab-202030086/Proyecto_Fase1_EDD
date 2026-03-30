@@ -92,7 +92,7 @@ int main(){
             sistema.eliminarProducto(nombre);
         }
         else if(opcion == 6) {
-            sistema.listarPorNombre();
+            sistema.mostrarAVL();
         }
         else if(opcion == 7) {
             string nombre;

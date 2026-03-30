@@ -38,3 +38,4 @@ void NodoAVL::setAltura(int a) {
 void NodoAVL::setProducto(Producto* p) {
     producto = p;
 }
+

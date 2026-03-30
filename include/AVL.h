@@ -30,5 +30,8 @@ class AVL {
         void mostrarInOrden();
         void eliminar(std::string nombre);
         bool insertarSeguro(Producto* producto);
+
+        void generarDot(string archivo);
+        void generarDotRec(NodoAVL* nodo, ofstream& file);
     };
  #endif

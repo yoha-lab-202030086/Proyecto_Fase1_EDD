@@ -26,10 +26,13 @@ class SistemaCatalogo {
 
        void mostrarProductos();
        void mostrarListaOrdenada();
-       void buscarProducto(string nombre);
        void buscarPorCodigo(string codigo);
        void listarPorNombre();
        void eliminarProducto(string nombre);
+       
+       void mostrarAVL();
+       void buscarProducto(string nombre);
+       
        void compararRendimiento();
 
        void mostrarPorCategoria();
@@ -39,7 +42,7 @@ class SistemaCatalogo {
        void mostrarArbolB();
        void buscarPorRangoFecha(string inicio, string fin);
        void eliminarProductoPorFecha(string fecha);
-       
+
        void cargarDesdeCSV(string archivo);
 }; 
 
