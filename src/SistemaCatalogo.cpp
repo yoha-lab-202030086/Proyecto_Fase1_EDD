@@ -234,6 +234,8 @@ long long delAVL = totalDelAVL / 500;
 void SistemaCatalogo::mostrarPorCategoria() {
      cout<<"\n=== PRODUCTOS ORDENADOS POR CATEGORIA ===\n";
      arbolBPlus.mostrar();
+     arbolBPlus.generarDot("bplus.dot");
+    system("dot -Tpng bplus.dot -o bplus.png");
 }   
 
 void SistemaCatalogo::buscarPorCategoria(string categoria) {
@@ -308,3 +310,4 @@ void SistemaCatalogo::cargarDesdeCSV(string archivo) {
 
     cout << "Productos cargados: " << contador << endl;
 }
+

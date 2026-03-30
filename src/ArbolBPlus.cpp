@@ -1,5 +1,6 @@
 #include "../include/ArbolBPlus.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -91,4 +92,46 @@ void ArbolBPlus::eliminar(string nombre) {
     }
                  cout<<"No encontrado\n";
 }
+
+void ArbolBPlus::generarDot(string archivo) {
+
+    ofstream file(archivo);
+
+    file << "digraph BPlus {\n";
+    file << "rankdir=LR;\n";
+    file << "node [shape=record];\n";
+
+    NodoBPlus* actual = cabeza;
+
+    string categoriaActual = "";
+
+    while(actual != nullptr) {
+
+        string nombre = actual->getProducto()->getNombre();
+        string categoria = actual->getProducto()->getCategoria();
+
+        // Mostrar categoria solo cuando cambia
+        if(categoria != categoriaActual){
+            file << "\"" << categoria << "\" [shape=box, style=filled, color=lightblue];\n";
+            categoriaActual = categoria;
+        }
+
+        file << "\"" << nombre << "\" [label=\"" << nombre << "\"];\n";
+
+        // conectar categoria -> producto
+        file << "\"" << categoria << "\" -> \"" << nombre << "\";\n";
+
+        // conectar productos entre sí (opcional)
+        if(actual->getSiguiente() != nullptr){
+            string siguiente = actual->getSiguiente()->getProducto()->getNombre();
+            file << "\"" << nombre << "\" -> \"" << siguiente << "\" [style=dashed];\n";
+        }
+
+        actual = actual->getSiguiente();
+    }
+
+    file << "}\n";
+    file.close();
+}
+
                 

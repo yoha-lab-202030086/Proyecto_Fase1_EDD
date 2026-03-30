@@ -15,5 +15,6 @@ class ArbolBPlus {
        void mostrar();
        void buscarPorCategoria(string categoria);
        void eliminar(string nombre);
+       void generarDot(string archivo);
 };
  #endif
