@@ -12,6 +12,7 @@ class ArbolBPlus {
        ArbolBPlus();
 
        void insertar(Producto* producto);
+       void mostrar();
        void buscarPorCategoria(string categoria);
        void eliminar(string nombre);
 };

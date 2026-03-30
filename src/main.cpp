@@ -13,20 +13,21 @@ int main(){
 
         cout<<"\n===== CATALOGO DE SUPERMERCADO =====\n";
         cout<<"1. Agregar producto\n";
-        cout<<"2. Mostrar productos (lista no ordenada)\n";
-        cout<<"3. Mostrar productos (lista ordenada)\n";
+        cout<<"2. Mostrar productos (Lista no ordenada)\n";
+        cout<<"3. Mostrar productos (Lista ordenada)\n";
         cout<<"4. Buscar producto por codigo de barra (Lista)\n";
         cout<<"5. Eliminar producto (Lista)\n";
         cout<<"6. Mostrar productos ordenados por nombre (AVL)\n";
         cout<<"7. Buscar producto por nombre (AVL)\n";
         cout<<"8. Eliminar producto por nombre (AVL)\n";
-        cout<<"9. Comparar rendimiento Lista Vs AVL\n";
-        cout<<"10. Buscar productos por categoria (arbol B+)\n";
-        //cout<<"10. Comparar rendimiento Lista Vs AVL\n";
-        cout<<"11. Mostrar productos ordenados por fecha (Arbol B)\n";
-        cout<<"12. Buscar productos por rango de fecha (Arbol B)\n";
-        cout<<"13. Eliminar productos por fecha (Arbol B)\n";
-        cout<<"15. Cargar archivo CSV\n";
+        cout<<"9. Comparar rendimiento (Lista Vs AVL)\n";
+        cout<<"10. Mostrar productos ordenados por categoria (Arbol B+)\n";
+        cout<<"11. Buscar productos por categoria (Arbol B+)\n";
+        cout<<"12. Eliminar producto (Arbol B+)\n";
+        cout<<"13. Mostrar productos ordenados por fecha (Arbol B)\n";
+        cout<<"14. Buscar productos por rango de fecha (Arbol B)\n";
+        cout<<"15. Eliminar productos por fecha (Arbol B)\n";
+        cout<<"16. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
         cin>>opcion;
@@ -113,16 +114,27 @@ int main(){
             sistema.compararRendimiento();
         }
         else if(opcion == 10) {
+           sistema.mostrarPorCategoria();
+        }
+        else if(opcion == 11) {
             string categoria; 
             cout<<"Ingese categoria: ";
             cin>>categoria;
 
             sistema.buscarPorCategoria(categoria);
         }
-        else if(opcion == 11) {
+        else if(opcion == 12) {
+            string nombre; 
+            cout<<"Nombre: ";
+            cin>>nombre; 
+
+            sistema.eliminarProductoBPlus(nombre);
+        }   
+        else if(opcion == 13) {
+
             sistema.mostrarArbolB();
         }   
-        else if(opcion == 12) {
+        else if(opcion == 14) {
             string inicio, fin;
             cout<<"Fecha inicio (YYYY-MM-DD): ";
             cin>>inicio;
@@ -131,7 +143,7 @@ int main(){
 
             sistema.buscarPorRangoFecha(inicio, fin);
         }
-        else if(opcion == 13) {
+        else if(opcion == 15) {
             string fecha;
             cout<<"Ingrese la fecha de caducidad (YYYY-MM-DD): ";
             cin>>fecha;
@@ -139,7 +151,7 @@ int main(){
             sistema.eliminarProductoPorFecha(fecha);
 
         }
-        else if(opcion == 15) {
+        else if(opcion == 16) {
 
             sistema.cargarDesdeCSV("data/productos.csv");
         }

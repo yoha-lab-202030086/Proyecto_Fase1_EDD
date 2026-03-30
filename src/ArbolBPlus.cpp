@@ -31,6 +31,18 @@ void ArbolBPlus::insertar(Producto* producto){
     actual->setSiguiente(nuevo);
 }
 
+void ArbolBPlus::mostrar() {
+
+    NodoBPlus* actual = cabeza;
+
+    while(actual != nullptr) {
+
+        actual->getProducto()->mostrar();
+
+        actual = actual->getSiguiente();
+    }
+}
+
 // Buscar
 void ArbolBPlus::buscarPorCategoria(string categoria){
 
@@ -71,8 +83,6 @@ void ArbolBPlus::eliminar(string nombre) {
                  delete actual;
 
                     cout<<"(B+) eliminado correctamente\n";
-
-                    cout<<"(B+) si fuera un B+ real -> se evaluaria redistribucion o fusion\n";
 
                     return;
         }

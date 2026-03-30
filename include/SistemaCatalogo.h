@@ -21,18 +21,25 @@ class SistemaCatalogo {
 
     public: 
        SistemaCatalogo();
+
        void agregarProducto(Producto* producto, bool mostrarMensaje = true);
+
        void mostrarProductos();
        void mostrarListaOrdenada();
        void buscarProducto(string nombre);
        void buscarPorCodigo(string codigo);
        void listarPorNombre();
+       void eliminarProducto(string nombre);
        void compararRendimiento();
+
+       void mostrarPorCategoria();
        void buscarPorCategoria(string categoria);
+       void eliminarProductoBPlus(string nombre);
+
        void mostrarArbolB();
        void buscarPorRangoFecha(string inicio, string fin);
-       void eliminarProducto(string nombre);
        void eliminarProductoPorFecha(string fecha);
+       
        void cargarDesdeCSV(string archivo);
 }; 
 
