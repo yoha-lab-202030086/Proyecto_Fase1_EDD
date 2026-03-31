@@ -44,6 +44,9 @@ public:
     void mostrarRec(NodoB* nodo);
     void eliminar(string fecha);
     void buscarPorRango(string inicio, string fin);
+
+    void generarDot(string archivo);
+    void generarDotRec(ofstream& file, NodoB* nodo);
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include "../include/ArbolB.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -385,4 +386,50 @@ void ArbolB::fusionar(NodoB* nodo, int i){
     nodo->cantidadClaves--;
 
     delete hermano;
+}
+
+void ArbolB::generarDot(string archivo) {
+    ofstream file(archivo);
+
+    file << "digraph BTree {\n";
+    file << "node [shape=record];\n";
+
+    generarDotRec(file, raiz);
+
+    file << "}\n";
+    file.close();
+}
+
+void ArbolB::generarDotRec(ofstream &file, NodoB* nodo) {
+
+    if (nodo == nullptr) return;
+
+    file << "\"Nodo" << nodo << "\" [label=\"";
+
+    int i;
+
+    for (i = 0; i < nodo->cantidadClaves; i++) {
+
+        file << "<f" << i << "> "
+             << nodo->productos[i]->getFechaCaducidad()
+             << " | ";
+    }
+
+    file << "<f" << i << ">\"";
+
+    file << "];\n";
+
+    // Conexiones
+    if (!nodo->esHoja) {
+        for (int j = 0; j <= nodo->cantidadClaves; j++) {
+
+            if (nodo->hijos[j] != nullptr) {
+
+                file << "\"Nodo" << nodo << "\":f" << j
+                     << " -> \"Nodo" << nodo->hijos[j] << "\";\n";
+
+                generarDotRec(file, nodo->hijos[j]);
+            }
+        }
+    }
 }

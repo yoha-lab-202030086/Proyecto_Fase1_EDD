@@ -232,9 +232,9 @@ long long delAVL = totalDelAVL / 500;
 }
 
 void SistemaCatalogo::mostrarPorCategoria() {
-     cout<<"\n=== PRODUCTOS ORDENADOS POR CATEGORIA ===\n";
-     arbolBPlus.mostrar();
-     arbolBPlus.generarDot("bplus.dot");
+    cout<<"\n=== PRODUCTOS ORDENADOS POR CATEGORIA ===\n";
+    arbolBPlus.mostrar();
+    arbolBPlus.generarDot("bplus.dot");
     system("dot -Tpng bplus.dot -o bplus.png");
 }   
 
@@ -247,7 +247,10 @@ void SistemaCatalogo::eliminarProductoBPlus(string nombre) {
 }
 
 void SistemaCatalogo::mostrarArbolB() {
+
     arbolB.mostrar();
+    arbolB.generarDot("btree.dot");
+    system("dot -Tpng btree.dot -o btree.png");
 }
 
 void SistemaCatalogo::buscarPorRangoFecha(string inicio, string fin){

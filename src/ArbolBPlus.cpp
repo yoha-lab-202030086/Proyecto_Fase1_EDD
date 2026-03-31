@@ -121,7 +121,7 @@ void ArbolBPlus::generarDot(string archivo) {
         // conectar categoria -> producto
         file << "\"" << categoria << "\" -> \"" << nombre << "\";\n";
 
-        // conectar productos entre sí (opcional)
+        // conectar productos
         if(actual->getSiguiente() != nullptr){
             string siguiente = actual->getSiguiente()->getProducto()->getNombre();
             file << "\"" << nombre << "\" -> \"" << siguiente << "\" [style=dashed];\n";
