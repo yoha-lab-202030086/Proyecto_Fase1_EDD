@@ -389,10 +389,12 @@ void ArbolB::fusionar(NodoB* nodo, int i){
 }
 
 void ArbolB::generarDot(string archivo) {
+
     ofstream file(archivo);
 
     file << "digraph BTree {\n";
-    file << "node [shape=record];\n";
+    file << "graph [bgcolor=\"lightblue\"];\n"; 
+    file << "node [shape=record, style=filled, fillcolor=\"white\"];\n";
 
     generarDotRec(file, raiz);
 

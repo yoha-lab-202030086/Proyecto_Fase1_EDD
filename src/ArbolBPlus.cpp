@@ -98,8 +98,8 @@ void ArbolBPlus::generarDot(string archivo) {
     ofstream file(archivo);
 
     file << "digraph BPlus {\n";
-    file << "rankdir=LR;\n";
-    file << "node [shape=record];\n";
+    file << "graph [bgcolor=\"lightgreen\"];\n"; 
+    file << "node [shape=record, style=filled, fillcolor=\"white\"];\n";
 
     NodoBPlus* actual = cabeza;
 

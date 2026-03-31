@@ -220,8 +220,9 @@ void AVL::generarDot(string archivo) {
     ofstream file(archivo);
 
     file << "digraph AVL {\n";
-    file << "node [shape=circle];\n";
 
+    file << "graph [bgcolor=\"lightyellow\"];\n"; 
+    file << "node [shape=circle, style=filled, fillcolor=\"white\", fixedsize=true, whidth=1.8 height=1.8];\n";
     generarDotRec(raiz, file);
 
     file << "}\n";
