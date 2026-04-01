@@ -1,137 +1,228 @@
 #include "../include/ArbolBPlus.h"
 #include <iostream>
-#include <fstream>
 
 using namespace std;
 
-// Constructor
-ArbolBPlus::ArbolBPlus(){
-    cabeza = nullptr;
+ArbolBPlus::ArbolBPlus(int grado) {
+    this->grado = grado;
+    raiz = new NodoBPlus(grado, true);
 }
 
-// Insertar ordenado por categoria
-void ArbolBPlus::insertar(Producto* producto){
+void ArbolBPlus::insertar(Producto* producto) {
+    NodoBPlus* hoja = buscarHoja(raiz, producto->getCategoria());
 
-    NodoBPlus* nuevo = new NodoBPlus(producto->getCategoria(), producto);
+    insertarEnHoja(hoja, producto);
 
-    // Caso: lista vacía o insertar al inicio
-    if(cabeza == nullptr || producto->getCategoria() < cabeza->getCategoria()){
-        nuevo->setSiguiente(cabeza);
-        cabeza = nuevo;
+    if (hoja->getCantidadClaves() == grado) {
+        dividirHoja(hoja);
+    }
+}
+
+NodoBPlus* ArbolBPlus::buscarHoja(NodoBPlus* nodo, string clave) {
+    if (nodo->getEsHoja()) return nodo;
+
+    int i = 0;
+    while (i < nodo->getCantidadClaves() && clave >= nodo->getClaves()[i]) {
+        i++;
+    }
+
+    return buscarHoja(nodo->getHijos()[i], clave);
+}
+
+void ArbolBPlus::insertarEnHoja(NodoBPlus* hoja, Producto* producto) {
+    int i = hoja->getCantidadClaves() - 1;
+
+    while (i >= 0 && producto->getCategoria() < hoja->getClaves()[i]) {
+        hoja->getClaves()[i + 1] = hoja->getClaves()[i];
+        hoja->getProductos()[i + 1] = hoja->getProductos()[i];
+        i--;
+    }
+
+    hoja->getClaves()[i + 1] = producto->getCategoria();
+    hoja->getProductos()[i + 1] = producto;
+
+    hoja->setCantidadClaves(hoja->getCantidadClaves() + 1);
+}
+
+void ArbolBPlus::dividirHoja(NodoBPlus* hoja) {
+    int mitad = grado / 2;
+
+    NodoBPlus* nuevaHoja = new NodoBPlus(grado, true);
+
+    for (int i = mitad; i < grado; i++) {
+        nuevaHoja->getClaves()[i - mitad] = hoja->getClaves()[i];
+        nuevaHoja->getProductos()[i - mitad] = hoja->getProductos()[i];
+    }
+
+    nuevaHoja->setCantidadClaves(grado - mitad);
+    hoja->setCantidadClaves(mitad);
+
+    nuevaHoja->setSiguiente(hoja->getSiguiente());
+    hoja->setSiguiente(nuevaHoja);
+
+    string claveSube = nuevaHoja->getClaves()[0];
+
+    insertarEnPadre(hoja, claveSube, nuevaHoja);
+}
+
+void ArbolBPlus::insertarEnPadre(NodoBPlus* izquierda, string clave, NodoBPlus* derecha) {
+    if (raiz == izquierda) {
+        NodoBPlus* nuevaRaiz = new NodoBPlus(grado, false);
+
+        nuevaRaiz->getClaves()[0] = clave;
+        nuevaRaiz->getHijos()[0] = izquierda;
+        nuevaRaiz->getHijos()[1] = derecha;
+
+        nuevaRaiz->setCantidadClaves(1);
+
+        raiz = nuevaRaiz;
         return;
     }
 
-    NodoBPlus* actual = cabeza;
+    NodoBPlus* padre = buscarPadre(raiz, izquierda);
 
-    while(actual->getSiguiente() != nullptr &&
-          actual->getSiguiente()->getCategoria() < producto->getCategoria()){
-        actual = actual->getSiguiente();
+    int i = padre->getCantidadClaves() - 1;
+
+    while (i >= 0 && clave < padre->getClaves()[i]) {
+        padre->getClaves()[i + 1] = padre->getClaves()[i];
+        padre->getHijos()[i + 2] = padre->getHijos()[i + 1];
+        i--;
     }
 
-    nuevo->setSiguiente(actual->getSiguiente());
-    actual->setSiguiente(nuevo);
+    padre->getClaves()[i + 1] = clave;
+    padre->getHijos()[i + 2] = derecha;
+
+    padre->setCantidadClaves(padre->getCantidadClaves() + 1);
+
+    if (padre->getCantidadClaves() == grado) {
+        dividirInterno(padre);
+    }
+}
+
+NodoBPlus* ArbolBPlus::buscarPadre(NodoBPlus* actual, NodoBPlus* hijo) {
+    if (actual->getEsHoja()) return nullptr;
+
+    for (int i = 0; i <= actual->getCantidadClaves(); i++) {
+        if (actual->getHijos()[i] == hijo) {
+            return actual;
+        }
+
+        NodoBPlus* encontrado = buscarPadre(actual->getHijos()[i], hijo);
+        if (encontrado != nullptr) return encontrado;
+    }
+
+    return nullptr;
+}
+
+void ArbolBPlus::dividirInterno(NodoBPlus* nodo) {
+    int mitad = grado / 2;
+
+    NodoBPlus* nuevo = new NodoBPlus(grado, false);
+
+    for (int i = mitad + 1; i < grado; i++) {
+        nuevo->getClaves()[i - (mitad + 1)] = nodo->getClaves()[i];
+    }
+
+    for (int i = mitad + 1; i <= grado; i++) {
+        nuevo->getHijos()[i - (mitad + 1)] = nodo->getHijos()[i];
+    }
+
+    nuevo->setCantidadClaves(grado - mitad - 1);
+
+    string claveSube = nodo->getClaves()[mitad];
+    nodo->setCantidadClaves(mitad);
+
+    insertarEnPadre(nodo, claveSube, nuevo);
 }
 
 void ArbolBPlus::mostrar() {
+    mostrarRec(raiz);
+}
 
-    NodoBPlus* actual = cabeza;
+void ArbolBPlus::mostrarRec(NodoBPlus* nodo) {
+    if (nodo == nullptr) return;
 
-    while(actual != nullptr) {
-
-        actual->getProducto()->mostrar();
-
-        actual = actual->getSiguiente();
+    if (nodo->getEsHoja()) {
+        for (int i = 0; i < nodo->getCantidadClaves(); i++) {
+            nodo->getProductos()[i]->mostrar();
+        }
+    } else {
+        for (int i = 0; i <= nodo->getCantidadClaves(); i++) {
+            mostrarRec(nodo->getHijos()[i]);
+        }
     }
 }
 
-// Buscar
-void ArbolBPlus::buscarPorCategoria(string categoria){
+void ArbolBPlus::buscarPorCategoria(string categoria) {
+    buscarRec(raiz, categoria);
+}
 
-    NodoBPlus* actual = cabeza;
-    bool encontrado = false;
+void ArbolBPlus::buscarRec(NodoBPlus* nodo, string categoria) {
+    if (nodo == nullptr) return;
 
-    cout << "\n=== PRODUCTOS DE LA CATEGORIA ===\n";
-
-    while(actual != nullptr){
-
-        if(actual->getCategoria() == categoria){
-            actual->getProducto()->mostrar();
-            encontrado = true;
+    if (nodo->getEsHoja()) {
+        for (int i = 0; i < nodo->getCantidadClaves(); i++) {
+            if (nodo->getClaves()[i] == categoria) {
+                nodo->getProductos()[i]->mostrar();
+            }
         }
-
-        actual = actual->getSiguiente();
-    }
-
-    if(!encontrado){
-        cout << "No hay productos en esta categoria\n";
+    } else {
+        for (int i = 0; i <= nodo->getCantidadClaves(); i++) {
+            buscarRec(nodo->getHijos()[i], categoria);
+        }
     }
 }
 
-void ArbolBPlus::eliminar(string nombre) {
-
-    NodoBPlus* actual = cabeza;
-    NodoBPlus* anterior = nullptr;
-
-    while(actual != nullptr) {
-
-        if(actual->getProducto()->getNombre() == nombre) {
-
-            if(anterior == nullptr) {
-                cabeza = actual->getSiguiente();
-            } else {
-                    anterior->setSiguiente(actual->getSiguiente());
-                }
-                 delete actual;
-
-                    cout<<"(B+) eliminado correctamente\n";
-
-                    return;
-        }
-                anterior = actual;
-                actual = actual->getSiguiente();
-    }
-                 cout<<"No encontrado\n";
+void ArbolBPlus::eliminar(string clave) {
+    cout << "Eliminacion no implementada aun\n";
 }
 
 void ArbolBPlus::generarDot(string archivo) {
-
     ofstream file(archivo);
 
-    file << "digraph BPlus {\n";
-    file << "graph [bgcolor=\"lightgreen\"];\n"; 
-    file << "node [shape=record, style=filled, fillcolor=\"white\"];\n";
+    file << "digraph G {\n";
+    file << "node [shape=record, style=filled, fillcolor=lightblue];\n";
 
-    NodoBPlus* actual = cabeza;
-
-    string categoriaActual = "";
-
-    while(actual != nullptr) {
-
-        string nombre = actual->getProducto()->getNombre();
-        string categoria = actual->getProducto()->getCategoria();
-
-        // Mostrar categoria solo cuando cambia
-        if(categoria != categoriaActual){
-            file << "\"" << categoria << "\" [shape=box, style=filled, color=lightblue];\n";
-            categoriaActual = categoria;
-        }
-
-        file << "\"" << nombre << "\" [label=\"" << nombre << "\"];\n";
-
-        // conectar categoria -> producto
-        file << "\"" << categoria << "\" -> \"" << nombre << "\";\n";
-
-        // conectar productos
-        if(actual->getSiguiente() != nullptr){
-            string siguiente = actual->getSiguiente()->getProducto()->getNombre();
-            file << "\"" << nombre << "\" -> \"" << siguiente << "\" [style=dashed];\n";
-        }
-
-        actual = actual->getSiguiente();
-    }
+    generarDotRec(file, raiz);
 
     file << "}\n";
     file.close();
+}
+
+void ArbolBPlus::generarDotRec(ofstream &file, NodoBPlus* nodo) {
+    if (nodo == nullptr) return;
+
+    file << "\"Nodo" << nodo << "\" [label=\"";
+
+    if (nodo->getEsHoja()) {
+      
+        for (int i = 0; i < nodo->getCantidadClaves(); i++) {
+            file << nodo->getClaves()[i] << "\\n" //
+                 << nodo->getProductos()[i]->getNombre();
+
+            if (i != nodo->getCantidadClaves() - 1) file << " | ";
+        }
+    } else {
+ 
+        for (int i = 0; i < nodo->getCantidadClaves(); i++) {
+            file << nodo->getClaves()[i];
+
+            if (i != nodo->getCantidadClaves() - 1) file << " | ";
+        }
+    }
+
+    file << "\"];\n";
+
+    if (!nodo->getEsHoja()) {
+        for (int i = 0; i <= nodo->getCantidadClaves(); i++) {
+            if (nodo->getHijos()[i] != nullptr) {
+                file << "\"Nodo" << nodo << "\" -> \"Nodo"
+                     << nodo->getHijos()[i] << "\";\n";
+
+                generarDotRec(file, nodo->getHijos()[i]);
+            }
+        }
+    }
 }
 
                 

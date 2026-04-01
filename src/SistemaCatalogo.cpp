@@ -7,7 +7,7 @@
 
 using namespace std::chrono; 
 
-SistemaCatalogo::SistemaCatalogo() : arbolB(3){
+SistemaCatalogo::SistemaCatalogo() : arbolB(3), arbolBPlus(3) {
 }
 
 void SistemaCatalogo::agregarProducto(Producto* producto, bool mostrarMensaje) {
