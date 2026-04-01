@@ -14,7 +14,7 @@ int main(){
         cout<<"\n===== CATALOGO DE SUPERMERCADO =====\n";
         cout<<"1. Agregar producto\n";
         cout<<"2. Mostrar productos (Lista no ordenada)\n";
-        cout<<"3. Mostrar productos (Lista ordenada)\n";
+        cout<<"3. Mostrar productos por nombre(Lista ordenada)\n";
         cout<<"4. Buscar producto por codigo de barra (Lista)\n";
         cout<<"5. Eliminar producto (Lista)\n";
         cout<<"6. Mostrar productos ordenados por nombre (AVL)\n";
@@ -23,10 +23,10 @@ int main(){
         cout<<"9. Comparar rendimiento (Lista Vs AVL)\n";
         cout<<"10. Mostrar productos ordenados por categoria (Arbol B+)\n";
         cout<<"11. Buscar productos por categoria (Arbol B+)\n";
-        cout<<"12. Eliminar producto (Arbol B+)\n";
+        cout<<"12. Eliminar productos por categoria (Arbol B+)\n";
         cout<<"13. Mostrar productos ordenados por fecha (Arbol B)\n";
         cout<<"14. Buscar productos por rango de fecha (Arbol B)\n";
-        cout<<"15. Eliminar productos por fecha (Arbol B)\n";
+        cout<<"15. Eliminar producto por fecha (Arbol B)\n";
         cout<<"16. Cargar archivo CSV\n";
         cout<<"0. Salir\n";
         cout<<"Seleccione una opcion: ";
@@ -86,7 +86,7 @@ int main(){
         else if(opcion == 5) {
             
             string nombre;
-            cout<<"Ingrese nombre del producto a eliminar: ";
+            cout<<"Ingrese el nombre del producto a eliminar: ";
             cin>>nombre;
 
             sistema.eliminarProducto(nombre);
@@ -125,7 +125,7 @@ int main(){
         }
         else if(opcion == 12) {
             string nombre; 
-            cout<<"Nombre: ";
+            cout<<"Categoria: ";
             cin>>nombre; 
 
             sistema.eliminarProductoBPlus(nombre);

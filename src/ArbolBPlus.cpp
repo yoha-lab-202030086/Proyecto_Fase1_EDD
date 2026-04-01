@@ -19,12 +19,15 @@ void ArbolBPlus::insertar(Producto* producto) {
 }
 
 NodoBPlus* ArbolBPlus::buscarHoja(NodoBPlus* nodo, string clave) {
+
     if (nodo->getEsHoja()) return nodo;
 
     int i = 0;
-    while (i < nodo->getCantidadClaves() && clave >= nodo->getClaves()[i]) {
+    while (i < nodo->getCantidadClaves() && clave >= nodo->getClaves()[i]) { 
         i++;
     }
+
+    if (nodo->getHijos()[i] == nullptr) return nodo;
 
     return buscarHoja(nodo->getHijos()[i], clave);
 }
@@ -136,20 +139,19 @@ void ArbolBPlus::dividirInterno(NodoBPlus* nodo) {
 }
 
 void ArbolBPlus::mostrar() {
-    mostrarRec(raiz);
-}
+    if (raiz == nullptr) return;
 
-void ArbolBPlus::mostrarRec(NodoBPlus* nodo) {
-    if (nodo == nullptr) return;
+    NodoBPlus* actual = raiz;
 
-    if (nodo->getEsHoja()) {
-        for (int i = 0; i < nodo->getCantidadClaves(); i++) {
-            nodo->getProductos()[i]->mostrar();
+    while (!actual->getEsHoja()) {
+        actual = actual->getHijos()[0];
+    }
+
+    while (actual != nullptr) {
+        for (int i = 0; i < actual->getCantidadClaves(); i++) {
+            actual->getProductos()[i]->mostrar();
         }
-    } else {
-        for (int i = 0; i <= nodo->getCantidadClaves(); i++) {
-            mostrarRec(nodo->getHijos()[i]);
-        }
+        actual = actual->getSiguiente();
     }
 }
 
@@ -173,8 +175,28 @@ void ArbolBPlus::buscarRec(NodoBPlus* nodo, string categoria) {
     }
 }
 
-void ArbolBPlus::eliminar(string clave) {
-    cout << "Eliminacion no implementada aun\n";
+void ArbolBPlus::eliminar(string categoria) {
+
+    NodoBPlus* hoja = buscarHoja(raiz, categoria);
+
+    int i;
+    for (i = 0; i < hoja->getCantidadClaves(); i++) {
+        if (hoja->getClaves()[i] == categoria) break;
+    }
+
+    if (i == hoja->getCantidadClaves()) {
+        cout << "No encontrado\n";
+        return;
+    }
+
+    for (int j = i; j < hoja->getCantidadClaves() - 1; j++) {
+        hoja->getClaves()[j] = hoja->getClaves()[j + 1];
+        hoja->getProductos()[j] = hoja->getProductos()[j + 1];
+    }
+
+    hoja->setCantidadClaves(hoja->getCantidadClaves() - 1);
+
+    cout << "Eliminado correctamente\n";
 }
 
 void ArbolBPlus::generarDot(string archivo) {
@@ -224,5 +246,3 @@ void ArbolBPlus::generarDotRec(ofstream &file, NodoBPlus* nodo) {
         }
     }
 }
-
-                

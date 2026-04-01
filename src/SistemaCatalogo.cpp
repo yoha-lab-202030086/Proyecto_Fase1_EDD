@@ -67,7 +67,7 @@ void SistemaCatalogo::eliminarProducto(string nombre) {
     arbol.eliminar(nombre);
     
     cout<<"Producto eliminado correctamente\n";
-}  
+}
 
 void SistemaCatalogo::mostrarAVL() {
    cout<<"\n=== PRODUCTOS ORDENADOS POR NOMBRE ===\n";
@@ -243,7 +243,7 @@ void SistemaCatalogo::buscarPorCategoria(string categoria) {
 } 
 
 void SistemaCatalogo::eliminarProductoBPlus(string nombre) {
-    arbolBPlus.eliminar(nombre);
+    arbolBPlus.eliminar(nombre); 
 }
 
 void SistemaCatalogo::mostrarArbolB() {

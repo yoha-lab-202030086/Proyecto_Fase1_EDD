@@ -21,7 +21,6 @@ private:
     NodoBPlus* buscarPadre(NodoBPlus* actual, NodoBPlus* hijo);
     void dividirInterno(NodoBPlus* nodo);
 
-    void mostrarRec(NodoBPlus* nodo);
     void buscarRec(NodoBPlus* nodo, string categoria);
     void generarDotRec(ofstream& file, NodoBPlus* nodo);
 
