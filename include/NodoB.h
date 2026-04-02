@@ -10,7 +10,7 @@ public:
     NodoB** hijos;            // Arreglo de hijos
 
     int cantidadClaves;       // Cuántos productos hay en el nodo
-    bool esHoja;              // Indica si es hoja
+    bool esHoja;              
 
     int gradoMinimo;          // Grado del árbol (t)
 
