@@ -1,8 +1,7 @@
 # Ejecutables
 *.exe
 *.out
-programa
-programa.exe
+catalogo.exe
 
 # Archivos objeto (compilación)
 *.o
@@ -12,10 +11,8 @@ programa.exe
 *.tmp
 *.log
 
-# Archivos generados por compilación
-*.a
-*.so
-*.dll
+# Archivos generados(Graphviz)
+*.png
 
 # Carpetas de compilación
 build/
