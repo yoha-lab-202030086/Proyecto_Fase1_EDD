@@ -10,7 +10,7 @@ Compilar manualmente:
 g++ src/*.cpp
 
 ## Ejecución
-./a.exe
+catalogo.exe
 
 ## Requisitos
 - Sistema operativo Linux / Windows (con MinGW)
